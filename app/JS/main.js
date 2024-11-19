@@ -8,10 +8,20 @@ async function getData() {
     data.forEach((x) => {
       console.log(x.displayName);
     });
+    createCards(data);
   } catch (error) {
     console.log(error);
     alert("sorry");
   }
 }
-
-getData();
+function createCards(data) {
+  data.forEach((el) =>
+    document
+      .querySelector(".container")
+      .insertAdjacentHTML(
+        "beforeend",
+        `<div class="card w-[27%] h-[auto] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><img src="${el.displayIcon}" alt=""></div>`
+      )
+  );
+}
+console.log(getData());
