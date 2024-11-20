@@ -5,9 +5,6 @@ async function getData() {
     const response = await fetch("https://valorant-api.com/v1/bundles");
     const info = await response.json();
     const data = info.data.slice(0, 125);
-    data.forEach((x) => {
-      console.log(x.displayName);
-    });
     createCards(data);
   } catch (error) {
     console.log(error);
@@ -17,10 +14,10 @@ async function getData() {
 function createCards(data) {
   data.forEach((el) =>
     document
-      .querySelector(".container")
+      .querySelector(".box")
       .insertAdjacentHTML(
         "beforeend",
-        `<div class="card w-[27%] h-[auto] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><img src="${el.displayIcon}" alt=""></div>`
+        `<div class="card w-[27%] h-[15px] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2>${el.displayName}</h2><img class="w-[50%] h-auto" src="${el.displayIcon}" alt=""></div>`
       )
   );
 }
