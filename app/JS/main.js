@@ -17,7 +17,7 @@ function createCards(data) {
       .querySelector(".box")
       .insertAdjacentHTML(
         "beforeend",
-        `<div class="card w-[27%] h-[15px] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2>${el.displayName}</h2><img class="w-[50%] h-auto" src="${el.displayIcon}" alt=""></div>`
+        `<div class="card w-[27%] h-[auto] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2>${el.displayName}</h2><img src="${el.displayIcon}" alt=""></div>`
       )
   );
 }
