@@ -12,13 +12,22 @@ async function getData() {
   }
 }
 function createCards(data) {
+  document.querySelector(".box").innerHTML = "";
   data.forEach((el) =>
     document
       .querySelector(".box")
       .insertAdjacentHTML(
         "beforeend",
-        `<div class="card w-[27%] h-[16rem] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2>${el.displayName}</h2><img class="object-contain" src="${el.displayIcon}" alt=""></div>`
+        `<div class="card w-[27%] h-[auto] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2>${el.displayName}</h2><img src="${el.displayIcon}" alt=""></div>`
       )
   );
+}
+function search(data) {
+  document.querySelector("form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let search = document.querySelector("#search").value;
+    let bundles = data.filter((el) => el.displayName.includes(`${search}`));
+  });
+  createCards(bundles);
 }
 console.log(getData());
