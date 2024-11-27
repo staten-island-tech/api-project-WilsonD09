@@ -4,8 +4,9 @@ async function getData() {
   try {
     const response = await fetch("https://valorant-api.com/v1/bundles");
     const info = await response.json();
-    const data = info.data.slice(1, 125);
+    const data = info.data;
     createCards(data);
+    search(data);
   } catch (error) {
     console.log(error);
     alert("sorry");
@@ -25,9 +26,12 @@ function createCards(data) {
 function search(data) {
   document.querySelector("form").addEventListener("submit", function (event) {
     event.preventDefault();
-    let search = document.querySelector("#search").value;
-    let bundles = data.filter((el) => el.displayName.includes(`${search}`));
+    const search = document.querySelector("#search").value.toLowerCase();
+    const bundles = data.filter((el) =>
+      el.displayName.toLowerCase().includes(`${search}`)
+    );
+    createCards(bundles);
+    document.querySelector("#search").value = "";
   });
-  createCards(bundles);
 }
 console.log(getData());
