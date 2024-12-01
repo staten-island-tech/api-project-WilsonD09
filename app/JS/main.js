@@ -3,10 +3,14 @@ import "../style.css";
 async function getData() {
   try {
     const response = await fetch("https://valorant-api.com/v1/bundles");
-    const info = await response.json();
-    const data = info.data;
-    createCards(data);
-    search(data);
+    if (response.status != 200) {
+      throw new Error(response);
+    } else {
+      const info = await response.json();
+      const data = info.data;
+      createCards(data);
+      search(data);
+    }
   } catch (error) {
     console.log(error);
     alert("sorry");
@@ -19,7 +23,7 @@ function createCards(data) {
       .querySelector(".box")
       .insertAdjacentHTML(
         "beforeend",
-        `<div class="card w-[27%] h-[auto] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2>${el.displayName}</h2><img src="${el.displayIcon}" alt=""></div>`
+        `<div class="card bg-white w-[27%] h-[auto] border-[5px] border-black flex flex-col items-center justify-around mb-[5%] text-center"><h2 class="text-black">${el.displayName}</h2><img src="${el.displayIcon}" alt=""></div>`
       )
   );
 }
