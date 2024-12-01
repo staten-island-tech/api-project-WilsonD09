@@ -38,4 +38,5 @@ function search(data) {
     document.querySelector("#search").value = "";
   });
 }
+
 console.log(getData());
