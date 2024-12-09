@@ -9,7 +9,6 @@ async function getData() {
       const info = await response.json();
       const data = info.data;
       createCards(data);
-      search(data);
     }
   } catch (error) {
     console.log(error);
@@ -27,16 +26,31 @@ function createCards(data) {
       )
   );
 }
-function search(data) {
-  document.querySelector("form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    const search = document.querySelector("#search").value.toLowerCase();
-    const bundles = data.filter((el) =>
-      el.displayName.toLowerCase().includes(`${search}`)
-    );
-    createCards(bundles);
-    document.querySelector("#search").value = "";
-  });
-}
+async function search() {
+  document
+    .querySelector("form")
+    .addEventListener("submit", async function (event) {
+      event.preventDefault();
 
+      const searchInput = document.querySelector("#search").value.toLowerCase();
+      document.querySelector("#search").value = "";
+      try {
+        const response = await fetch("https://valorant-api.com/v1/bundles");
+        if (response.status != 200) {
+          throw new Error(response);
+        } else {
+          const data = await response.json();
+          const bundles = data.filter((el) =>
+            el.displayName.toLowerCase().includes(searchInput)
+          );
+
+          createCards(bundles);
+        }
+      } catch (error) {
+        console.log(error);
+        alert("sorry");
+      }
+    });
+}
 console.log(getData());
+search();
