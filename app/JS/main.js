@@ -40,7 +40,7 @@ async function search() {
           throw new Error(response);
         } else {
           const data = await response.json();
-          const bundles = data.filter((el) =>
+          const bundles = data.data.filter((el) =>
             el.displayName.toLowerCase().includes(searchInput)
           );
 
@@ -53,4 +53,4 @@ async function search() {
     });
 }
 console.log(getData());
-search();
+console.log(search());
